@@ -166,11 +166,11 @@ Response:
 
 ## 9. Project Structure
 
-MedGraph/
-│── index.html
-│── style.css
-│── script.js
-│── server.js
+MedGraph \
+│── index.html \
+│── style.css \
+│── script.js \
+│── server.js \
 │── README.md
 
 --------------------------------------------------
@@ -186,9 +186,9 @@ MedGraph/
 
 ## 11. Demo
 
-Live Demo: https://overclock24-hackathon.onrender.com/
-Video Demo: https://drive.google.com/file/d/1TD5-vnW5o5QfQaGROY64iXTZOxgB93as/view?usp=sharing
-GitHub Repo: https://github.com/code-czar24/overclock24_hackathon-.git
+Live Demo: https://overclock24-hackathon.onrender.com/ \
+Video Demo: https://drive.google.com/file/d/1TD5-vnW5o5QfQaGROY64iXTZOxgB93as/view?usp=sharing \
+GitHub Repo: https://github.com/code-czar24/overclock24_hackathon-.git 
 
 --------------------------------------------------
 
