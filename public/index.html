@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RxGuard — Drug Interaction Analyzer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- Background grid -->
+<div class="bg-grid"></div>
+<div class="bg-glow bg-glow--1"></div>
+<div class="bg-glow bg-glow--2"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__logo">
+    <div class="nav__logo-icon">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </div>
+    <span>Rx<strong>Guard</strong></span>
+  </div>
+  <div class="nav__links">
+    <a href="#checker" class="nav__link">Checker</a>
+    <a href="#about" class="nav__link">About</a>
+    <span class="nav__badge">v2.0 Beta</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="checker">
+  <div class="hero__eyebrow">
+    <span class="pill pill--pulse">⚕ AI-Enhanced Analysis</span>
+  </div>
+  <h1 class="hero__title">
+    Drug Interaction<br /><em>Analyzer</em>
+  </h1>
+  <p class="hero__subtitle">
+    Instantly identify dangerous drug combinations. Powered by a clinical database with real mechanisms, effects, and management guidance.
+  </p>
+
+  <!-- MAIN CARD -->
+  <div class="card" id="checkerCard">
+    <div class="card__header">
+      <div class="card__header-icon">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div>
+        <h2 class="card__title">Check Interactions</h2>
+        <p class="card__subtitle">Add 2 or more drugs to analyze</p>
+      </div>
+    </div>
+
+    <!-- Drug Input -->
+    <div class="drug-input-area">
+      <div class="drug-tags" id="drugTags"></div>
+      <div class="input-wrap">
+        <input
+          type="text"
+          id="drugInput"
+          class="drug-input"
+          placeholder="Type a drug name and press Enter…"
+          autocomplete="off"
+        />
+        <div class="autocomplete-list" id="autocompleteList"></div>
+      </div>
+    </div>
+
+    <!-- Quick Add Popular Drugs -->
+    <div class="quick-add">
+      <span class="quick-add__label">Popular:</span>
+      <button class="chip" onclick="quickAdd('Warfarin')">Warfarin</button>
+      <button class="chip" onclick="quickAdd('Aspirin')">Aspirin</button>
+      <button class="chip" onclick="quickAdd('Metformin')">Metformin</button>
+      <button class="chip" onclick="quickAdd('Ibuprofen')">Ibuprofen</button>
+      <button class="chip" onclick="quickAdd('Lisinopril')">Lisinopril</button>
+      <button class="chip" onclick="quickAdd('Simvastatin')">Simvastatin</button>
+    </div>
+
+    <!-- Analyze Button -->
+    <button class="btn btn--primary" id="analyzeBtn" onclick="analyzeInteractions()" disabled>
+      <span class="btn__text">Analyze Interactions</span>
+      <span class="btn__loader" style="display:none">
+        <svg class="spin" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="15"/></svg>
+        Analyzing…
+      </span>
+      <svg class="btn__icon" viewBox="0 0 24 24" fill="none"><path d="M13 7l5 5-5 5M6 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <!-- RESULTS AREA -->
+  <div class="results" id="results" style="display:none">
+    <!-- Summary bar -->
+    <div class="results__summary" id="resultsSummary"></div>
+    <!-- Interaction cards -->
+    <div class="results__grid" id="resultsGrid"></div>
+    <!-- Disclaimer -->
+    <div class="disclaimer">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p><strong>Medical Disclaimer:</strong> This tool is for educational purposes only and does not constitute medical advice. Always consult a qualified healthcare professional or pharmacist before making any medication decisions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS SECTION -->
+<section class="stats-section" id="about">
+  <div class="stats-section__header">
+    <h2>Database Overview</h2>
+    <p>Local clinical database + live OpenFDA coverage</p>
+    <div style="margin-top:0.75rem"><span class="stats-section__subtitle">🌐 100,000+ drugs via OpenFDA · No API key required</span></div>
+  </div>
+  <div class="stats-grid" id="statsGrid">
+    <div class="stat-card">
+      <div class="stat-card__value" id="statDrugs">—</div>
+      <div class="stat-card__label">Drugs Indexed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card__value" id="statInteractions">—</div>
+      <div class="stat-card__label">Interactions Mapped</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card__value" id="statSearches">—</div>
+      <div class="stat-card__label">Searches Performed</div>
+    </div>
+    <div class="stat-card stat-card--alert">
+      <div class="stat-card__value" id="statMajor">—</div>
+      <div class="stat-card__label">Major / Contraindicated</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <h2>How It Works</h2>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-card__num">01</div>
+      <h3>Enter Your Drugs</h3>
+      <p>Type any medication name or brand name. Our database auto-suggests matches.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-card__num">02</div>
+      <h3>Deep Analysis</h3>
+      <p>We check every drug pair against our clinical database covering mechanisms and effects.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-card__num">03</div>
+      <h3>Severity Rating</h3>
+      <p>Results are classified: None, Minor, Moderate, Major, or Contraindicated.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-card__num">04</div>
+      <h3>Management Guidance</h3>
+      <p>Each interaction includes clinical management recommendations and onset timing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__logo">Rx<strong>Guard</strong></div>
+  <p>Built for educational purposes. Not a substitute for professional medical advice.</p>
+  <p class="footer__tech">Powered by Node.js · Express · MongoDB · Clinical Interaction Database</p>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>

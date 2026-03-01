@@ -1,0 +1,20 @@
+[
+  {
+    "drugs": [
+      "warfarin",
+      "aspirin",
+      "metformin"
+    ],
+    "severityFound": "major",
+    "timestamp": "2026-03-01T04:15:08.843Z"
+  },
+  {
+    "drugs": [
+      "warfarin",
+      "aspirin",
+      "metformin"
+    ],
+    "severityFound": "major",
+    "timestamp": "2026-03-01T00:17:26.465Z"
+  }
+]
