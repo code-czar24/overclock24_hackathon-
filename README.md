@@ -194,9 +194,9 @@ GitHub Repo: https://github.com/code-czar24/overclock24_hackathon-.git
 
 ## 12. Team
 
-Vinayak Giregol – Developer
-Sonu Choudhary – Research
-Akash Kumar – Testing
+Vinayak Giregol – Developer \
+Sonu Choudhary – Research \
+Akash Kumar – Testing 
 
 --------------------------------------------------
 
