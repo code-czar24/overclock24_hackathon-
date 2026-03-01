@@ -186,9 +186,9 @@ MedGraph/
 
 ## 11. Demo
 
-Live Demo: Add Link
-Video Demo: Add Link
-GitHub Repo: Add Link
+Live Demo: https://overclock24-hackathon.onrender.com/
+Video Demo: https://drive.google.com/file/d/1TD5-vnW5o5QfQaGROY64iXTZOxgB93as/view?usp=sharing
+GitHub Repo: https://github.com/code-czar24/overclock24_hackathon-.git
 
 --------------------------------------------------
 
