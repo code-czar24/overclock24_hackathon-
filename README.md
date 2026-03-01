@@ -1,122 +1,223 @@
-# 💊 RxGuard — Drug Interaction Analyzer
+# MedGraph – Drug Interaction Checker
 
-A production-ready drug interaction analyzer built for hackathons. Features a stunning dark UI, MongoDB database, and clinical-grade interaction data.
+A simple web-based Drug Interaction Checker that helps users find possible interactions between medicines using a MongoDB database.
 
----
+--------------------------------------------------
 
-## 🚀 Quick Start (5 minutes)
+## 1. Problem Statement
 
-### 1. Install Dependencies
-```bash
-npm install
-```
+### Problem Title
+Drug Interaction Checker
 
-### 2. Setup Environment
-```bash
-cp .env.example .env
-# Edit .env if needed (MongoDB URI, port)
-```
+### Problem Description
+Many patients take multiple medicines at the same time. Some medicines should not be taken together because they can cause harmful effects.
 
-### 3. Start MongoDB
-Make sure MongoDB is running locally:
-```bash
-# Mac (Homebrew)
-brew services start mongodb/brew/mongodb-community
+Doctors and students often need a quick way to check medicine interactions. This project provides a simple tool where users can enter medicine names and check if any interactions exist.
 
-# Ubuntu/Linux
-sudo service mongod start
+The system:
+- Takes a list of medicines as input
+- Checks for interactions
+- Shows severity levels
+- Displays interaction descriptions
 
-# Windows
-net start MongoDB
-```
+### Target Users
+- Students
+- Doctors
+- Pharmacists
+- Anyone wanting to check medicine interactions
 
-### 4. Seed the Database
-```bash
-node seed.js
-```
-This populates 23 drugs and 18 interaction records.
+### Existing Gaps
+- Hard to quickly check interactions
+- Manual searching takes time
+- No simple tools for quick checking
 
-### 5. Start the Server
-```bash
-npm start
-# or for development with auto-reload:
-npm run dev
-```
+--------------------------------------------------
 
-### 6. Open in Browser
-```
-http://localhost:3000
-```
+## 2. Problem Understanding & Approach
 
----
+### Problem
+- People take multiple medicines
+- Some medicines interact with each other
+- Interactions can be harmful
+- Checking manually is slow
 
-## 🏗️ Project Structure
+### Approach
+- Store medicine interaction data in MongoDB
+- Take medicine names as input
+- Check interactions in database
+- Display results
 
-```
-drug-analyzer/
-├── server.js          ← Main Express server
-├── seed.js            ← Database seeder
-├── package.json
-├── .env.example
-├── models/
-│   ├── Drug.js        ← Drug MongoDB schema
-│   ├── Interaction.js ← Interaction schema
-│   └── SearchHistory.js
-├── routes/
-│   └── api.js         ← All API endpoints
-├── data/
-│   └── drugData.js    ← Clinical interaction database
-└── public/
-    ├── index.html     ← Frontend (single page)
-    ├── css/style.css  ← All styling
-    └── js/app.js      ← Frontend logic
-```
+--------------------------------------------------
 
----
+## 3. Proposed Solution
 
-## 🔌 API Endpoints
+### Solution Overview
+MedGraph checks medicine interactions using a simple database.
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/drugs` | List all drugs |
-| GET | `/api/drugs/search?q=warfarin` | Autocomplete search |
-| POST | `/api/interactions/check` | Check interactions |
-| GET | `/api/stats` | Dashboard statistics |
+### Core Idea
+- User enters medicine names
+- System checks MongoDB
+- If interaction exists, it is displayed
 
-### Example: Check Interaction
-```bash
-curl -X POST http://localhost:3000/api/interactions/check \
-  -H "Content-Type: application/json" \
-  -d '{"drugs": ["warfarin", "aspirin"]}'
-```
+### Key Features
+- Medicine input
+- Interaction checking
+- Severity display
+- Simple interface
 
----
+--------------------------------------------------
 
-## ⚕ Features
+## 4. System Architecture
 
-- 🔍 **Autocomplete Search** — Find drugs by name or brand
-- ⚡ **Severity Ratings** — None / Minor / Moderate / Major / Contraindicated
-- 🔬 **Mechanism Explanations** — Understand WHY interactions occur
-- 💊 **Clinical Effects** — See what symptoms to expect
-- 🩺 **Management Guidance** — What to do if combination is necessary
-- 📊 **Live Stats Dashboard** — Database metrics
-- 💾 **MongoDB Storage** — Persistent search history
-- 🛡️ **Rate Limiting** — API protection built-in
+### High-Level Flow
+User → Frontend → Server → MongoDB → Results
 
----
+### Description
+1. User enters medicine names
+2. Data is sent using JavaScript
+3. Server checks MongoDB
+3. Results are returned
+5. Results are displayed
 
-## 🌟 Hackathon Tips
+--------------------------------------------------
 
-1. **Demo flow**: Type "Warfarin" + "Aspirin" → major interaction
-2. **Impressive combo**: "Fluoxetine" + "Tramadol" → serotonin syndrome warning
-3. **Safe example**: "Paracetamol" + "Ibuprofen" → safe combination
-4. **CONTRAINDICATED**: "SSRI" + "MAOI" → life-threatening warning
+## 5. Database Design
 
----
+### Collections
+Drug Interaction Collection:
 
-## Tech Stack
+Fields:
+- drug1
+- drug2
+- severity
+- description
 
-- **Frontend**: Vanilla HTML5, CSS3, JavaScript (ES6+)
-- **Backend**: Node.js + Express.js
-- **Database**: MongoDB + Mongoose ODM
-- **Fonts**: Syne (headings) + DM Sans (body)
+Example:
+
+{
+  "drug1": "Paracetamol",
+  "drug2": "Ibuprofen",
+  "severity": "Low",
+  "description": "Safe in normal doses"
+}
+
+--------------------------------------------------
+
+## 6. Dataset Selected
+
+### Dataset Name
+Drug Interaction Data
+
+### Data Type
+- Drug names
+- Drug pairs
+- Severity
+- Description
+
+### Reason
+- Easy to store
+- Easy to check
+- Simple structure
+
+--------------------------------------------------
+
+## 7. Technology Stack
+
+### Frontend
+- HTML
+- CSS
+- JavaScript
+
+### Backend
+- Node.js
+- JavaScript
+
+### Database
+- MongoDB
+
+--------------------------------------------------
+
+## 8. API
+
+### Check Interactions
+
+POST /check
+
+Request:
+
+{
+  "drugs": ["Paracetamol", "Ibuprofen"]
+}
+
+Response:
+
+{
+  "interactions": [
+    {
+      "drug1": "Paracetamol",
+      "drug2": "Ibuprofen",
+      "severity": "Low",
+      "description": "Safe in normal doses"
+    }
+  ]
+}
+
+--------------------------------------------------
+
+## 9. Project Structure
+
+MedGraph/
+│── index.html
+│── style.css
+│── script.js
+│── server.js
+│── README.md
+
+--------------------------------------------------
+
+## 10. Workflow
+
+1. Enter medicines
+2. Send data
+3. Check database
+4. Show results
+
+--------------------------------------------------
+
+## 11. Demo
+
+Live Demo: Add Link
+Video Demo: Add Link
+GitHub Repo: Add Link
+
+--------------------------------------------------
+
+## 12. Team
+
+Vinayak Giregol – Developer
+Sonu Choudhary – Research
+Akash Kumar – Testing
+
+--------------------------------------------------
+
+## 13. Future Scope
+
+- Add more medicines
+- Improve design
+- Faster search
+
+--------------------------------------------------
+
+## 14. Limitations
+
+- Limited data
+- Basic checking
+- Not a medical tool
+
+--------------------------------------------------
+
+## 15. Impact
+
+- Helps check interactions
+- Saves time
+- Easy to use
